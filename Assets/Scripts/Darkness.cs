@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class a : MonoBehaviour {
+public class Darkness : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
