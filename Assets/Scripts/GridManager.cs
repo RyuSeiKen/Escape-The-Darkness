@@ -3,13 +3,13 @@ using System.Collections;
 
 public class GridManager : MonoBehaviour {
 
-	[HideInInspector]
 	public GameObject[,] _Dungeon;
-	int DungeonLength = 20;
-	int DungeonWidth = 20;
+
+	int DungeonLength = 21;
+	int DungeonWidth = 21;
 
 	// Use this for initialization
-	void Start () 
+	void Awake () 
 	{
 		_Dungeon = new GameObject[DungeonLength, DungeonWidth];
 	}
