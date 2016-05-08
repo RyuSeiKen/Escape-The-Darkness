@@ -1,13 +1,15 @@
-﻿Shader "Hidden/Dark"
-{
+﻿Shader "Custom/Dark" {
 	Properties
 	{
-		_MainTex ("Texture", 2D) = "white" {}
+        _InnerRadius("Inner Radius", Float) = 0
+        _InnerColor("Inner Color", Color) = (1, 0, 0, 0)
+        _OuterRadius("Outer Radius", Float) = 0
+        _OuterColor("Outer Color", Color) = (0, 0, 0, 0)
 	}
 	SubShader
 	{
-		// No culling or depth
-		Cull Off ZWrite Off ZTest Always
+		Cull Back
+        ZWrite On
 
 		Pass
 		{
@@ -37,14 +39,17 @@
 				return o;
 			}
 			
-			sampler2D _MainTex;
+            uniform float _InnerRadius;
+            uniform float4 _InnerColor;
+            uniform float _OuterRadius;
+            uniform float4 _OuterColor;
 
 			fixed4 frag (v2f i) : SV_Target
 			{
-				fixed4 col = tex2D(_MainTex, i.uv);
-				// just invert the colors
-				col = 1 - col;
-				return col;
+                float2 offset = i.uv - float2(0.5, 0.5);
+                float radius = length(offset);
+                float ratio = smoothstep(_InnerRadius, _OuterRadius, radius);
+                return lerp(_InnerColor, _OuterColor, ratio);
 			}
 			ENDCG
 		}
