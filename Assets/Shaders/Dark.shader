@@ -1,10 +1,14 @@
-﻿Shader "Custom/Dark" {
+﻿Shader "Custom/Dark"
+{
 	Properties
 	{
         _InnerRadius("Inner Radius", Float) = 0
         _InnerColor("Inner Color", Color) = (1, 0, 0, 0)
         _OuterRadius("Outer Radius", Float) = 0
         _OuterColor("Outer Color", Color) = (0, 0, 0, 0)
+        _OffsetX("OffsetX", Float) = 0.5
+		_OuterRadius("OffsetY", Float) = 0.5
+
 	}
 	SubShader
 	{
@@ -43,10 +47,12 @@
             uniform float4 _InnerColor;
             uniform float _OuterRadius;
             uniform float4 _OuterColor;
+            uniform float _OffsetX;
+            uniform float _OffsetY;
 
 			fixed4 frag (v2f i) : SV_Target
 			{
-                float2 offset = i.uv - float2(0.5, 0.5);
+                float2 offset = i.uv - float2(_OffsetX, _OffsetY);
                 float radius = length(offset);
                 float ratio = smoothstep(_InnerRadius, _OuterRadius, radius);
                 return lerp(_InnerColor, _OuterColor, ratio);

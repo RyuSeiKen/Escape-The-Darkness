@@ -135,6 +135,14 @@ Material:
         first:
           name: _OuterRadius
         second: 0
+      data:
+        first:
+          name: _OffsetX
+        second: 0
+      data:
+        first:
+          name: _OffsetY
+        second: 0
     m_Colors:
       data:
         first:
