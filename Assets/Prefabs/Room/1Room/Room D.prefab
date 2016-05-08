@@ -498,7 +498,13 @@ MonoBehaviour:
   _left: 0
   _right: 0
   _up: 0
-  _down: 0
+  _down: 1
+  _leftAvailable: 0
+  _rightAvailable: 0
+  _upAvailable: 0
+  _downAvailable: 0
+  Xpos: 0
+  Ypos: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -508,7 +514,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: _down
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
