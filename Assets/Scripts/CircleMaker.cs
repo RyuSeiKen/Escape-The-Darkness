@@ -15,17 +15,22 @@ public class CircleMaker : MonoBehaviour
 	Transform currentBottomLeft;
 	Transform currentTopRight;
 
+	void Start()
+	{
+		material = room1.GetComponent<Renderer>().material;
+	}
 
 	void Update ()
 	{
-		LocationInRoom();
 		float amplitudeCenter = (amplitudeMax + amplitudeMin) * 0.5f;
 		float amplitudeDeviation = (amplitudeMax - amplitudeMin) * 0.5f;
 		float radius = Mathf.Sin(2.0f * Mathf.PI * frequency * Time.time) * amplitudeDeviation + amplitudeCenter;
 
-		material.SetFloat("_Radius", radius);
+		material.SetFloat("_Radius", radius); // just in case you want to use it
 		material.SetFloat("_InnerRadius", radius - feather * 0.5f);
 		material.SetFloat("_OuterRadius", radius + feather * 0.5f);
+		material.SetFloat("_OffsetX", LocationInRoom().x);
+		material.SetFloat("_OffsetY", LocationInRoom().y);
 	}
 
 	void OnCollisionEnter(Collision col)
@@ -39,7 +44,7 @@ public class CircleMaker : MonoBehaviour
 		oldMaterial.SetFloat("_OuterRadius", 0);
 	}
 
-	void LocationInRoom()
+	Vector2 LocationInRoom()
 	{
 		foreach(Transform child in room.transform)
 		{
@@ -52,9 +57,8 @@ public class CircleMaker : MonoBehaviour
 				currentTopRight = child;
 			}
 		}
-		float x = (transform.position.x - currentBottomLeft.position.x) / (2 * currentTopRight.position.x);
-		float y = (transform.position.y - currentBottomLeft.position.y) / (2 * currentTopRight.position.y);
-		pos = new Vector2(x, y);
-		Debug.Log(pos);
+		float x = (transform.position.x - currentBottomLeft.position.x) / (10);
+		float y = (transform.position.y - currentBottomLeft.position.y) / (10);
+		return pos = new Vector2(x, y);
 	}
 }
