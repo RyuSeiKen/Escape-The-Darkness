@@ -11,9 +11,7 @@ public class CircleMaker : MonoBehaviour
 	GameObject room;
 	Material material;
 	Material oldMaterial;
-	Vector2 pos;
 	Transform currentBottomLeft;
-	Transform currentTopRight;
 
 	void Start()
 	{
@@ -52,13 +50,9 @@ public class CircleMaker : MonoBehaviour
 			{
 				currentBottomLeft = child;
 			}
-			else if(child.tag == "TopRight")
-			{
-				currentTopRight = child;
-			}
 		}
 		float x = (transform.position.x - currentBottomLeft.position.x) / (10);
 		float y = (transform.position.y - currentBottomLeft.position.y) / (10);
-		return pos = new Vector2(x, y);
+		return new Vector2(x, y);
 	}
 }
