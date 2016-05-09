@@ -20,9 +20,12 @@ public class DungeonGenerator : MonoBehaviour {
 	List<GameObject> InstantiateRooms = new List<GameObject>();
 	List<GameObject> Temp = new List<GameObject> ();
 
+	int maxGeneration;
+
 	// Use this for initialization
 	void Start () {
 
+		maxGeneration = 0;
 
 		GameManager = GameObject.FindGameObjectWithTag ("Manager");
 		Grid = GameManager.GetComponent<GridManager> ();
@@ -38,6 +41,12 @@ public class DungeonGenerator : MonoBehaviour {
 
 		NewRooms.Add (NewRoom);
 
+		for (int f = 0; f < 7; f++) {
+			
+			ShuffleList ();
+			Generation ();
+			maxGeneration++;
+		}
 
 
 	}
@@ -222,46 +231,58 @@ public class DungeonGenerator : MonoBehaviour {
 			if (UpRoomProperties._down == true) {
 				
 				_up = 1;
-			} else 
-			{
+			} else {
 				_up = 0;
 			}
 
 
-		} else { _up = 2;}
+		} else {
+			if (maxGeneration == 6) {
+				_up = 0;
+			} else {
+				_up = 2;
+			}
+		}
 
 
+			if (Grid._Dungeon [NewRoomXpos, NewRoomYpos - 1] != null) {
 
-		if (Grid._Dungeon [NewRoomXpos, NewRoomYpos - 1] != null) {
-
-			Room DownRoomProperties = Grid._Dungeon [NewRoomXpos, NewRoomYpos - 1].GetComponent<Room> ();
-			if (DownRoomProperties._up == true) {
+				Room DownRoomProperties = Grid._Dungeon [NewRoomXpos, NewRoomYpos - 1].GetComponent<Room> ();
+				if (DownRoomProperties._up == true) {
 				
-				_down = 1;
+					_down = 1;
 
-			} else 
-			{
-				_down = 0;
+				} else {
+					_down = 0;
+				}
+
+
+			} else {
+				if (maxGeneration == 6) {
+					_down = 0;
+				} else {
+					_down = 2;
+				}
 			}
 
-
-		} else { _down = 2;}
-
-
-		if (Grid._Dungeon [NewRoomXpos - 1 , NewRoomYpos] != null) {
+		if (Grid._Dungeon [NewRoomXpos - 1, NewRoomYpos] != null) {
 
 			Room LeftRoomProperties = Grid._Dungeon [NewRoomXpos - 1, NewRoomYpos].GetComponent<Room> ();
 			if (LeftRoomProperties._right == true) {
 
 				_left = 1;
-			} else 
-			{
+			} else {
 				_left = 0;
 			}
 
 
-		} else { _left = 2;}
-
+		} else {
+			if (maxGeneration == 6) {
+				_left = 0;
+			} else {
+				_left = 2;
+			}
+		}
 
 		if (Grid._Dungeon [NewRoomXpos + 1, NewRoomYpos] != null) {
 			
@@ -270,13 +291,18 @@ public class DungeonGenerator : MonoBehaviour {
 			if (RightRoomProperties._left == true) {
 
 				_right = 1;
-			} else 
-			{
+			} else {
 				_right = 0;
 			}
 
 
-		} else { _right = 2;}
+		} else {
+			if (maxGeneration == 6) {
+				_right = 0;
+			} else {
+				_right = 2;
+			}
+		}
 
 		//Debug.Log (_up +""+ _down +""+ _left +""+ _right);
 		CheckArround (_up, _down, _left, _right);
@@ -446,10 +472,6 @@ public class DungeonGenerator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (Input.GetKeyDown (KeyCode.Space)) 
-		{
-			ShuffleList ();
-			Generation ();
-		}
+		
 	}
 }
