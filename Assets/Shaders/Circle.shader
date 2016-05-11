@@ -1,4 +1,4 @@
-﻿Shader "Custom/Dark"
+﻿Shader "Custom/Circle"
 {
 	Properties
 	{
@@ -7,14 +7,14 @@
         _OuterRadius("Outer Radius", Float) = 0
         _OuterColor("Outer Color", Color) = (0, 0, 0, 0)
         _OffsetX("OffsetX", Float) = 0.5
-		_OuterRadius("OffsetY", Float) = 0.5
-
+		_OffsetY("OffsetY", Float) = 0.5
 	}
 	SubShader
 	{
 		Cull Back
         ZWrite On
-
+//        Blend SrcAlpha OneMinusSrcAlpha
+//        Tags{ "Queue" = "Transparent" "RenderType" = "Transparent" }
 		Pass
 		{
 			CGPROGRAM
