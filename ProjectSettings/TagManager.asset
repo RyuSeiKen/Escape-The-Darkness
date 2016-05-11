@@ -8,6 +8,9 @@ TagManager:
   - BottomLeft
   - TopRight
   - Manager
+  - Coin
+  - End
+  - Level
   layers:
   - Default
   - TransparentFX
@@ -17,12 +20,12 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Wall
+  - Ground
+  - Trap
+  - Coin
+  - End
   - 
   - 
   - 

@@ -5,12 +5,19 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour 
 {
 	public Text time;
+<<<<<<< HEAD
+	[HideInInspector]
+	public int a = 0;
+	[HideInInspector]
+	public int b = 0;
+=======
 	public Text level;
 	public Image key;
 	int minutes = 0;
 	int seconds = 0;
 	int levelNumber = 1;
 	bool gotKey = false;
+>>>>>>> c792294d1477a7f0175cda6106156b671eb6824e
 
 	void Update () 
 	{
