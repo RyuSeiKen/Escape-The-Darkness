@@ -11,6 +11,9 @@ public class DungeonGenerator : MonoBehaviour {
 	GridManager Grid;
 	RoomManager RoomLists;
 	GameObject ChosenRoom;
+	FillRoom fill;
+	Joueur playerScript;
+	GameObject _Player;
 
 
 	int NewRoomXpos;
@@ -27,9 +30,12 @@ public class DungeonGenerator : MonoBehaviour {
 
 		maxGeneration = 0;
 
+		_Player = GameObject.FindGameObjectWithTag ("Player");
+		playerScript = _Player.GetComponent<Joueur> ();
 		GameManager = GameObject.FindGameObjectWithTag ("Manager");
 		Grid = GameManager.GetComponent<GridManager> ();
 		RoomLists = GameManager.GetComponent<RoomManager> ();
+		fill = GameManager.GetComponent<FillRoom> ();
 
 		GameObject NewRoom = Instantiate (_StartRoom) as GameObject;
 
@@ -48,6 +54,7 @@ public class DungeonGenerator : MonoBehaviour {
 			maxGeneration++;
 		}
 
+		fill.Fill ();
 
 	}
 
@@ -470,8 +477,30 @@ public class DungeonGenerator : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () 
+	public void NextLevel () 
 	{
-		
+		playerScript.ResetPos ();
+		maxGeneration = 0;
+		GameObject NewRoom2 = Instantiate (_StartRoom) as GameObject;
+
+		Grid._Dungeon [11, 11] = NewRoom2;
+
+		Room RoomProperties = NewRoom2.GetComponent<Room> ();
+		RoomProperties.Xpos = 11;
+		RoomProperties.Ypos = 11;
+
+		NewRoom2.transform.position = new Vector3 (_Player.transform.position.x, _Player.transform.position.y, 0);;
+
+		NewRooms.Add (NewRoom2);
+
+		for (int h= 0; h < 7; h++) {
+			
+			ShuffleList ();
+			Generation ();
+			maxGeneration++;
+		}
+
+		fill.Fill ();
+
 	}
 }

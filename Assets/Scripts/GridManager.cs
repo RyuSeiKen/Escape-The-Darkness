@@ -5,8 +5,8 @@ public class GridManager : MonoBehaviour {
 
 	public GameObject[,] _Dungeon;
 
-	int DungeonLength = 21;
-	int DungeonWidth = 21;
+	public int DungeonLength = 21;
+	public int DungeonWidth = 21;
 
 	// Use this for initialization
 	void Awake () 

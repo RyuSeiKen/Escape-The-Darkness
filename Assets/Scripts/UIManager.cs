@@ -5,8 +5,10 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour 
 {
 	public Text time;
-	int a = 0;
-	int b = 0;
+	[HideInInspector]
+	public int a = 0;
+	[HideInInspector]
+	public int b = 0;
 
 	void Update () 
 	{
